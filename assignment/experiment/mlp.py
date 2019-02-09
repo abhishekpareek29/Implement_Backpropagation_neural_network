@@ -28,7 +28,8 @@ def get_args():
                         help='Train the model')
     parser.add_argument('--test', action='store_true',
                         help='Test the model')
-
+    parser.add_argument('--train_with_tvd', action='store_true',
+                        help='Train the model with train and valid data')
 
     return parser.parse_args()
 
@@ -65,7 +66,37 @@ def test_model():
     # load the model.
     model = network2.load('../../sgd_model.json')
     accuracy = model.accuracy(test_data, convert=False)
-    print(accuracy)
+    total_cost = model.total_cost(test_data, 0.0, convert=True)
+    print('Accuracy: {}'.format(accuracy))
+    print('Total Cost: {}'.format(total_cost))
+
+def train_with_train_valid_data():
+    # load train_data, valid_data, test_data
+    train_data, valid_data, test_data = load_data()
+    # Concat train and valid dataset
+    train_valid_data = [[],[]]
+    train_data[0].extend(valid_data[0])
+    train_data[1].extend(valid_data[1])
+#     train_valid_data.append(train_data[0] + valid_data[0])
+#     train_valid_data.append(train_data[1] + valid_data[1])
+    print(len(train_data[0]))
+    print(len(train_data[1]))
+
+    # construct the network
+    model = network2.Network([784, 20, 10])
+    # train the network using SGD
+    model.SGD(
+        training_data=train_data,
+        epochs=100,
+        mini_batch_size=128,
+        eta=1e-3,
+        lmbda = 0.0,
+        evaluation_data=None,
+        monitor_evaluation_cost=False,
+        monitor_evaluation_accuracy=False,
+        monitor_training_cost=True,
+        monitor_training_accuracy=True)
+    model.save('../../sgd_model_opt.json')
     
 def main():
     # load train_data, valid_data, test_data
@@ -98,3 +129,5 @@ if __name__ == '__main__':
         gradient_check()
     if FLAGS.test:
         test_model()
+    if FLAGS.train_with_tvd:
+        train_with_train_valid_data()
