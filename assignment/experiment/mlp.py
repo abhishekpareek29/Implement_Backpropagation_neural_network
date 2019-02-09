@@ -63,7 +63,7 @@ def main():
     # construct the network
     model = network2.Network([784, 20, 10])
     # train the network using SGD
-    model.SGD(
+    ev_cost, ev_acc, train_cost, train_acc = model.SGD(
         training_data=train_data,
         epochs=100,
         mini_batch_size=128,
@@ -74,7 +74,27 @@ def main():
         monitor_evaluation_accuracy=True,
         monitor_training_cost=True,
         monitor_training_accuracy=True)
+
     model.save('../../sgd_model.sav')
+
+    z = np.arange(0, 100, 1)
+    plt.figure()
+    plt.subplot(2, 2, 1)
+    plt.plot(z, train_cost)
+    plt.title('train_cost')
+
+    plt.subplot(2, 2, 2)
+    plt.plot(z, train_acc)
+    plt.title('train_acc')
+
+    plt.subplot(2, 2, 3)
+    plt.plot(z, ev_cost)
+    plt.title('ev_cost')
+
+    plt.subplot(2, 2, 4)
+    plt.plot(z, ev_acc)
+    plt.title('ev_acc')
+    plt.show()
 
 if __name__ == '__main__':
     FLAGS = get_args()
