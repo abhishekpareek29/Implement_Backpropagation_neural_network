@@ -74,6 +74,7 @@ def main():
         monitor_evaluation_accuracy=True,
         monitor_training_cost=True,
         monitor_training_accuracy=True)
+    model.save('../../sgd_model.sav')
 
 if __name__ == '__main__':
     FLAGS = get_args()
