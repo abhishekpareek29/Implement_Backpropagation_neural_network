@@ -87,9 +87,9 @@ def train_with_train_valid_data():
     # train the network using SGD
     model.SGD(
         training_data=train_data,
-        epochs=100,
+        epochs=20,
         mini_batch_size=128,
-        eta=1e-3,
+        eta=7e-3,
         lmbda = 0.0,
         evaluation_data=None,
         monitor_evaluation_cost=False,
@@ -104,11 +104,12 @@ def main():
     # construct the network
     model = network2.Network([784, 20, 10])
     # train the network using SGD
+    epoch_size = 20
     ev_cost, ev_acc, train_cost, train_acc = model.SGD(
         training_data=train_data,
-        epochs=100,
+        epochs=epoch_size,
         mini_batch_size=128,
-        eta=1e-3,
+        eta=7e-3,
         lmbda = 0.0,
         evaluation_data=valid_data,
         monitor_evaluation_cost=True,
@@ -118,7 +119,7 @@ def main():
 
     model.save('../../sgd_model.json')
 
-    z = np.arange(0, 100, 1)
+    z = np.arange(0, epoch_size, 1)
     plt.figure()
     plt.subplot(2, 2, 1)
     plt.plot(z, train_cost)
