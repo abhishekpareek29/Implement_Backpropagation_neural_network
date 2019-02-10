@@ -97,7 +97,7 @@ def train_with_train_valid_data():
         monitor_training_cost=True,
         monitor_training_accuracy=True)
     model.save('../../sgd_model_opt.json')
-    
+
 def main():
     # load train_data, valid_data, test_data
     train_data, valid_data, test_data = load_data()

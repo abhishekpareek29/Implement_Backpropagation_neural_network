@@ -19,14 +19,14 @@ def backprop(x, y, biases, weightsT, cost, num_layers):
 
         Returns:
             (nabla_b, nabla_wT): tuple containing the gradient for all the biases
-                and weightsT. nabla_b and nabla_wT should be the same shape as 
+                and weightsT. nabla_b and nabla_wT should be the same shape as
                 input biases and weightsT
     """
 
     # initial zero list for store gradient of biases and weights
     nabla_b = [np.zeros(b.shape) for b in biases]
     nabla_wT = [np.zeros(wT.shape) for wT in weightsT]
-    
+
     ### Implement here
     # feedforward
     # Here you need to store all the activations of all the units
@@ -42,7 +42,7 @@ def backprop(x, y, biases, weightsT, cost, num_layers):
     # compute the gradient of error respect to output
     # activations[-1] is the list of activations of the output layer
     delta = (cost).df_wrt_a(activations[-1], y)
-    
+
     ### Implement here
     # backward pass
     # Here you need to implement the backward pass to compute the
@@ -54,13 +54,6 @@ def backprop(x, y, biases, weightsT, cost, num_layers):
         nabla_b[-k] = delta
         nabla_wT[-k] = np.dot(delta,activations[-k-1].transpose())
         delta = np.dot(weightsT[-k].transpose(),delta)
-
-#     nabla_b[-1] = delta
-#     nabla_wT[-1] = np.dot(delta,h[-2].transpose())
-#     for layer in range(2,num_layers):
-#         delta = np.dot(weightsT[-layer+1].transpose(),delta) * sigmoid_prime(a[-layer])
-#         nabla_b[-layer] = delta
-#         nabla_wT[-layer] = np.dot(delta,h[-layer-1].transpose())
 
     return (nabla_b, nabla_wT)
 

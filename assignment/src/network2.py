@@ -46,7 +46,7 @@ class CrossEntropyCost(object):
 
     @staticmethod
     def df_wrt_a(a, y):
-        """Return the derivative of cross entropy cost with respect to a.  
+        """Return the derivative of cross entropy cost with respect to a.
         Derive this using the loss function and include in report.
         """
         return (a-y)
@@ -226,7 +226,7 @@ class Network(object):
         # compute f(x - h)
         self.weightsT[layer_id][unit_id][weight_id] = o_weight - h
         f_x_s_h = self.total_cost([[x],[y]], lmbda=0.)
-        # approximated numerical gradient (f(x + h) - f(x - h)) / 2h 
+        # approximated numerical gradient (f(x + h) - f(x - h)) / 2h
         fn = (f_x_p_h - f_x_s_h) / (2. * h)
         print('=== Gradient Check ===')
         print('[analytic gradient]: {:04f}, [numerical gradient]: {:04f}'.format(fa, fn))
@@ -236,7 +236,7 @@ class Network(object):
 
         # recover the original weight
         self.weightsT[layer_id][unit_id][weight_id] = o_weight
-    
+
     def backprop(self, x, y):
         delta_nabla_b, delta_nabla_wT = bp.backprop(x, y, self.biases, self.weightsT, self.cost, self.num_layers)
         return (delta_nabla_b, delta_nabla_wT)
@@ -310,7 +310,7 @@ def load(filename):
     f.close()
     cost = getattr(sys.modules[__name__], data["cost"])
     net = Network(data["sizes"], cost=cost)
-    net.weights = [np.array(w) for w in data["weights"]]
+    net.weightsT = [np.array(w) for w in data["weights"]]
     net.biases = [np.array(b) for b in data["biases"]]
     return net
 
