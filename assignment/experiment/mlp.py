@@ -94,7 +94,7 @@ def train_with_train_valid_data():
         evaluation_data=None,
         monitor_evaluation_cost=False,
         monitor_evaluation_accuracy=False,
-        monitor_training_cost=True,
+        monitor_training_cost=False,
         monitor_training_accuracy=True)
     model.save('../../sgd_model_opt.json')
 
