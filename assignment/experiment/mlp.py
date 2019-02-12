@@ -120,22 +120,26 @@ def main():
     model.save('../../sgd_model.json')
 
     z = np.arange(0, epoch_size, 1)
-    plt.figure()
+    fig = plt.figure()
+    plt.subplots_adjust(hspace = 0.6, wspace=0.4)
+
     plt.subplot(2, 2, 1)
     plt.plot(z, train_cost)
-    plt.title('train_cost')
+    plt.title('training')
+    plt.ylabel('cost')
 
     plt.subplot(2, 2, 2)
-    plt.plot(z, train_acc)
-    plt.title('train_acc')
+    plt.plot(z, ev_cost)
+    plt.title('validation')
 
     plt.subplot(2, 2, 3)
-    plt.plot(z, ev_cost)
-    plt.title('ev_cost')
+    plt.plot(z, train_acc)
+    plt.ylabel('accuracy')
 
     plt.subplot(2, 2, 4)
     plt.plot(z, ev_acc)
-    plt.title('ev_acc')
+
+    fig.text(0.5, 0.04, 'epoch size', ha='center')
     plt.show()
 
 if __name__ == '__main__':
