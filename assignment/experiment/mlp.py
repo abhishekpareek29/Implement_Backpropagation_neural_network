@@ -94,7 +94,7 @@ def train_with_train_valid_data():
         evaluation_data=None,
         monitor_evaluation_cost=False,
         monitor_evaluation_accuracy=False,
-        monitor_training_cost=True,
+        monitor_training_cost=False,
         monitor_training_accuracy=True)
     model.save('../../sgd_model_opt.json')
 
@@ -104,7 +104,7 @@ def main():
     # construct the network
     model = network2.Network([784, 20, 10])
     # train the network using SGD
-    epoch_size = 20
+    epoch_size = 100
     ev_cost, ev_acc, train_cost, train_acc = model.SGD(
         training_data=train_data,
         epochs=epoch_size,
