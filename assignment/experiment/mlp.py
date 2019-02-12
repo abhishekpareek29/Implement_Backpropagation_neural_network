@@ -87,7 +87,7 @@ def train_with_train_valid_data():
     # train the network using SGD
     model.SGD(
         training_data=train_data,
-        epochs=2,
+        epochs=20,
         mini_batch_size=128,
         eta=7e-3,
         lmbda = 0.0,
