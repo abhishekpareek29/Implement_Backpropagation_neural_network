@@ -87,7 +87,7 @@ def train_with_train_valid_data():
     # train the network using SGD
     model.SGD(
         training_data=train_data,
-        epochs=20,
+        epochs=2,
         mini_batch_size=128,
         eta=7e-3,
         lmbda = 0.0,
@@ -104,7 +104,7 @@ def main():
     # construct the network
     model = network2.Network([784, 20, 10])
     # train the network using SGD
-    epoch_size = 20
+    epoch_size = 100
     ev_cost, ev_acc, train_cost, train_acc = model.SGD(
         training_data=train_data,
         epochs=epoch_size,
@@ -120,22 +120,26 @@ def main():
     model.save('../../sgd_model.json')
 
     z = np.arange(0, epoch_size, 1)
-    plt.figure()
+    fig = plt.figure()
+    plt.subplots_adjust(hspace = 0.6, wspace=0.4)
+
     plt.subplot(2, 2, 1)
     plt.plot(z, train_cost)
-    plt.title('train_cost')
+    plt.title('training')
+    plt.ylabel('cost')
 
     plt.subplot(2, 2, 2)
-    plt.plot(z, train_acc)
-    plt.title('train_acc')
+    plt.plot(z, ev_cost)
+    plt.title('validation')
 
     plt.subplot(2, 2, 3)
-    plt.plot(z, ev_cost)
-    plt.title('ev_cost')
+    plt.plot(z, train_acc)
+    plt.ylabel('accuracy')
 
     plt.subplot(2, 2, 4)
     plt.plot(z, ev_acc)
-    plt.title('ev_acc')
+
+    fig.text(0.5, 0.04, 'epoch size', ha='center')
     plt.show()
 
 if __name__ == '__main__':
